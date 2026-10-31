@@ -1,0 +1,29 @@
+¡Sí, totalmente! Puedes importar todo tu historial de Strava de golpe en lugar de ir actividad por actividad.
+
+Hay dos formas principales de hacerlo, según cómo queramos integrarlo con tu sistema:
+
+Opción 1: Exportación masiva de Strava (La más rápida para empezar)
+Strava te permite descargar un único archivo ZIP con toda tu historia desde que te creaste la cuenta (incluye todos los archivos .gpx, .fit y .tcx de tus salidas, rutas y datos de frecuencia cardíaca/potencia).
+
+Entra en tu cuenta de Strava desde la web (strava.com).
+
+Ve a Configuración > Mi cuenta (o Settings > Account).
+
+Busca la sección Descargar o eliminar tu cuenta (Download or Delete Your Account).
+
+Haz clic en Solicitar mi archivo (Request Your Archive).
+
+En unos minutos te llegará un correo de Strava con un enlace para descargar un ZIP completo.
+
+¿Cómo lo conectamos con tu backend?
+
+Podemos crear un script en tu backend de Python (Mi_Ciclismo_BC107_A1) para que lea esa carpeta descomprimida y procese de golpe todos los archivos .fit o .gpx, metiendo todo tu historial automáticamente en tu base de datos para que TeamTracker lo muestre directamente.
+
+Opción 2: Conexión directa mediante la API de Strava
+Si prefieres que sea 100% automático desde la nube sin descargar archivos manualmente:
+
+Se registra una app gratuita en la plataforma de desarrolladores de Strava (Strava API).
+
+Conectamos tu backend en Python a Strava usando tu cuenta.
+
+Hacemos una petición de importación inicial que recorre tu historial por páginas y sincroniza todas las actividades anteriores en segundo plano.

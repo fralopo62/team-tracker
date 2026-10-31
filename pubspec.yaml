@@ -1,0 +1,39 @@
+name: team_tracker
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_maps_flutter: ^2.9.0
+  supabase_flutter: ^2.5.0
+  geolocator: ^10.1.0
+  permission_handler: ^11.3.0
+  flutter_background_service: ^5.0.8
+  flutter_local_notifications: ^17.2.2
+  image_picker: ^1.1.2
+  share_plus: ^10.0.0
+  path_provider: ^2.1.4
+  widgets_to_image: ^2.0.1
+  flutter_dotenv: ^5.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+dependency_overrides:
+  app_links: '6.0.0'
+  geolocator_android: '4.3.0'
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - .env
