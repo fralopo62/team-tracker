@@ -1,24 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- AÑADE ESTOS TRES PERMISOS AQUÍ ARRIBA -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:label="team_tracker_nuevo"
+        android:label="Team Tracker"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        
-        <!-- AQUÍ VA TU API KEY DE GOOGLE MAPS -->
+
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDhgcWSl75je5mkS1VQrbYbw4gGorCcSvo" />
-                                       
+            android:name="flutterEmbedding"
+            android:value="2" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -28,22 +25,93 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
+
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+              android:resource="@style/NormalTheme" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <!-- Abrir actividad desde enlace propio (teamtracker://activity?id=...) -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="teamtracker"
+                    android:host="activity" />
+            </intent-filter>
+
+            <!-- Abrir actividad desde enlace https en GitHub Pages -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="fralopo62.github.io"
+                    android:pathPrefix="/team-tracker/activity" />
+            </intent-filter>
+
+            <!-- Abrir archivos (.fit / .gpx / genéricos) desde gestor de archivos o apps -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="content" />
+                <data android:scheme="file" />
+
+                <data android:mimeType="*/*" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="application/gpx+xml" />
+                <data android:mimeType="text/xml" />
+            </intent-filter>
+
+            <!-- Compartir archivos hacia team_tracker -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="application/gpx+xml" />
+                <data android:mimeType="text/xml" />
+            </intent-filter>
+
+            <!-- Deep link de autenticación de Supabase (teamtracker://auth-callback) -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android:category.BROWSABLE" />
+
+                <data
+                    android:scheme="teamtracker"
+                    android:host="auth-callback" />
+            </intent-filter>
         </activity>
-        
+
+        <service
+            android:name="com.baseflow.geolocator.GeolocatorLocationService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+
+        <!-- Clave de API para Google Maps -->
         <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDfoE6Rp_MZB_CU2DWCITzd0mbIZTCgDn0" />
+
     </application>
 
     <queries>
+        <package android:name="com.onecoder.coosporide" />
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
