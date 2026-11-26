@@ -120,24 +120,13 @@
                         <span id="activeUserName" class="text-sm font-medium text-slate-200 hidden sm:inline">Toda la familia</span>
                         <i class="fa-solid fa-chevron-down text-xs text-slate-400 ml-1"></i>
                     </button>
-                    <div id="userDropdown" class="hidden absolute right-0 mt-2 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 z-50">
+                    <div id="userDropdown" class="hidden absolute right-0 mt-2 w-60 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 z-50">
                         <div class="px-3 py-1.5 text-xs font-semibold text-slate-500 uppercase tracking-wider">Deportista Activo</div>
                         <button onclick="filterByUser('Toda la familia', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80')" class="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-lime-400 flex items-center space-x-2">
                             <i class="fa-solid fa-users text-xs text-lime-400"></i><span>Toda la familia</span>
                         </button>
                         <div class="border-t border-slate-800 my-1"></div>
-                        <button onclick="filterByUser('Francisco López', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80')" class="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-lime-400 flex items-center space-x-2">
-                            <i class="fa-solid fa-circle text-[8px] text-lime-400"></i><span>Francisco López</span>
-                        </button>
-                        <button onclick="filterByUser('Ana María Gil', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80')" class="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-cyan-400 flex items-center space-x-2">
-                            <i class="fa-solid fa-circle text-[8px] text-cyan-400"></i><span>Ana María Gil</span>
-                        </button>
-                        <button onclick="filterByUser('Marina López', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80')" class="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-orange-400 flex items-center space-x-2">
-                            <i class="fa-solid fa-circle text-[8px] text-orange-400"></i><span>Marina López</span>
-                        </button>
-                        <button onclick="filterByUser('Philipp Singer', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80')" class="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-purple-400 flex items-center space-x-2">
-                            <i class="fa-solid fa-circle text-[8px] text-purple-400"></i><span>Philipp Singer</span>
-                        </button>
+                        <div id="userDropdownMembers"></div>
                     </div>
                 </div>
             </div>
@@ -441,18 +430,33 @@
 
         async function loadActivitiesFromSupabase() {
             try {
-                const { data, error } = await supabaseClient
-                    .from('activities')
-                    .select('*')
-                    .order('start_time', { ascending: false })
-                    .range(0, 49);
+                const allRows = [];
+                const pageSize = 1000;
+                let from = 0;
 
-                if (error || !data || data.length === 0) {
-                    useFallbackData();
-                    return;
+                while (true) {
+                    const { data, error } = await supabaseClient
+                        .from('activities')
+                        .select('*')
+                        .order('start_time', { ascending: false })
+                        .range(from, from + pageSize - 1);
+
+                    if (error) {
+                        throw error;
+                    }
+
+                    if (!data || data.length === 0) {
+                        break;
+                    }
+
+                    allRows.push(...data);
+                    if (data.length < pageSize) {
+                        break;
+                    }
+                    from += pageSize;
                 }
 
-                fetchedActivities = data.map((item, idx) => {
+                fetchedActivities = allRows.map((item, idx) => {
                     let parsedCoords = item.coords || [];
                     if (parsedCoords.length === 0 && item.route_polyline && window.google && google.maps && google.maps.geometry) {
                         try {
@@ -466,7 +470,8 @@
 
                     return {
                         id: item.id || idx,
-                        owner: item.athlete_name || item.owner || 'Francisco López',
+                        owner: (item.athlete_name || item.owner || '').trim(),
+                        sport: (item.sport || item.sport_type || item.activity_type || item.type || 'Ciclismo').toString().trim(),
                         title: item.title || 'Ruta Ciclismo',
                         distance: Number(item.distance_km || item.distance || 0),
                         duration: formatSecondsToHM(item.moving_seconds || 5400),
@@ -481,9 +486,10 @@
                         route_polyline: item.route_polyline || null,
                         altitudes: item.altitudes || []
                     };
-                });
+                }).filter(act => act.owner.length > 0);
 
                 document.getElementById('kpiTotalActivities').innerHTML = `${fetchedActivities.length} <span class="text-sm font-normal text-slate-300">rutas</span>`;
+                renderActiveAthletesDropdown();
                 renderFilteredFeed();
 
             } catch(e) {
@@ -492,36 +498,53 @@
         }
 
         function useFallbackData() {
-            document.getElementById('supabaseKpiStatus').textContent = "Modo Local";
+            document.getElementById('supabaseKpiStatus').textContent = "Sin conexión";
             document.getElementById('supabaseKpiStatus').className = "text-xl font-extrabold text-amber-400 mt-1";
-            fetchedActivities = [
-                { 
-                    id: 2, 
-                    owner: 'Francisco López', 
-                    title: 'Salida Reciente (Brenes - San José)', 
-                    distance: 45.2, 
-                    duration: '1h 50m', 
-                    elapsed_time: '2h 10m',
-                    elevation: 320, 
-                    avg_speed: 24.6, 
-                    max_speed: 48.2,
-                    max_grade: 12.5,
-                    temperature: 18.5,
-                    date: '28 oct 2026',
-                    coords: [
-                        {lat: 37.5488, lng: -5.8715},
-                        {lat: 37.5600, lng: -5.8550},
-                        {lat: 37.5800, lng: -5.8300},
-                        {lat: 37.5500, lng: -5.8100},
-                        {lat: 37.5300, lng: -5.8450},
-                        {lat: 37.5488, lng: -5.8715}
-                    ],
-                    route_polyline: null,
-                    altitudes: [15, 45, 120, 210, 180, 45, 15]
-                }
-            ];
-            document.getElementById('kpiTotalActivities').innerHTML = `${fetchedActivities.length} <span class="text-sm font-normal text-slate-300">rutas</span>`;
+            fetchedActivities = [];
+            document.getElementById('kpiTotalActivities').innerHTML = `0 <span class="text-sm font-normal text-slate-300">rutas</span>`;
+            renderActiveAthletesDropdown();
             renderFilteredFeed();
+        }
+
+        function renderActiveAthletesDropdown() {
+            const container = document.getElementById('userDropdownMembers');
+            if (!container) return;
+
+            const counts = new Map();
+            for (const act of fetchedActivities) {
+                const name = (act.owner || '').trim();
+                if (!name) continue;
+                counts.set(name, (counts.get(name) || 0) + 1);
+            }
+
+            const activeAthletes = Array.from(counts.entries())
+                .filter(([, count]) => count > 0)
+                .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'es'));
+
+            if (activeAthletes.length === 0) {
+                container.innerHTML = `<div class="px-4 py-2 text-xs text-slate-500">Sin deportistas con actividades</div>`;
+                return;
+            }
+
+            container.innerHTML = activeAthletes.map(([name, count]) => {
+                const avatarUrl = AVATARES[name] || AVATARES['Francisco López'];
+                const safeName = name.replace(/'/g, "\\'");
+                const safeAvatar = avatarUrl.replace(/'/g, "\\'");
+                return `
+                    <button onclick="filterByUser('${safeName}', '${safeAvatar}')" class="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-lime-400 flex items-center justify-between gap-2">
+                        <span class="flex items-center space-x-2 truncate">
+                            <i class="fa-solid fa-circle text-[8px] text-lime-400"></i>
+                            <span class="truncate">${name}</span>
+                        </span>
+                        <span class="text-[11px] text-slate-400 font-mono">${count}</span>
+                    </button>
+                `;
+            }).join('');
+
+            const activeNames = activeAthletes.map(([name]) => name);
+            if (activeFilterUser !== 'Toda la familia' && !activeNames.includes(activeFilterUser)) {
+                filterByUser('Toda la familia', AVATARES['Francisco López']);
+            }
         }
 
         function triggerFileUpload() { document.getElementById('gpxFileInput').click(); }
@@ -616,6 +639,7 @@
                         fetchedActivities.unshift({
                             ...newActivity,
                             owner: newActivity.athlete_name,
+                            sport: 'Ciclismo',
                             distance: newActivity.distance_km,
                             duration: '1h 30m',
                             elapsed_time: '1h 45m',
@@ -626,11 +650,13 @@
                             temperature: newActivity.start_temperature,
                             date: 'Hoy'
                         });
+                        renderActiveAthletesDropdown();
                         renderFilteredFeed();
                         showToast('Guardado temporal en memoria.');
                     }
                 } else {
                     fetchedActivities.unshift(newActivity);
+                    renderActiveAthletesDropdown();
                     renderFilteredFeed();
                     showToast('Ruta cargada correctamente.');
                 }
@@ -670,7 +696,7 @@
                                 <div>
                                     <div class="flex items-center space-x-2">
                                         <h3 class="font-bold text-slate-100">${act.owner}</h3>
-                                        <span class="text-xs bg-lime-500/10 text-lime-400 px-2 py-0.5 rounded-md font-semibold border border-lime-500/20">Ciclismo</span>
+                                        <span class="text-xs bg-lime-500/10 text-lime-400 px-2 py-0.5 rounded-md font-semibold border border-lime-500/20">${act.sport || 'Ciclismo'}</span>
                                     </div>
                                     <p class="text-xs text-slate-400 mt-0.5"><i class="fa-regular fa-clock mr-1"></i> ${act.date}</p>
                                 </div>
