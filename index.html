@@ -120,7 +120,7 @@
                         <span id="activeUserName" class="text-sm font-medium text-slate-200 hidden sm:inline">Toda la familia</span>
                         <i class="fa-solid fa-chevron-down text-xs text-slate-400 ml-1"></i>
                     </button>
-                    <div id="userDropdown" class="hidden absolute right-0 mt-2 w-60 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 z-50">
+                    <div id="userDropdown" class="hidden absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 z-50">
                         <div class="px-3 py-1.5 text-xs font-semibold text-slate-500 uppercase tracking-wider">Deportista Activo</div>
                         <button onclick="filterByUser('Toda la familia', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80')" class="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-lime-400 flex items-center space-x-2">
                             <i class="fa-solid fa-users text-xs text-lime-400"></i><span>Toda la familia</span>
@@ -143,15 +143,15 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
                     <p class="text-xs font-semibold text-slate-400 uppercase">Distancia Mensual</p>
-                    <h3 class="text-2xl font-extrabold text-lime-400 mt-1">428.5 <span class="text-sm font-normal text-slate-300">km</span></h3>
+                    <h3 class="text-2xl font-extrabold text-lime-400 mt-1" id="kpiMonthDistance">0.0 <span class="text-sm font-normal text-slate-300">km</span></h3>
                 </div>
                 <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
                     <p class="text-xs font-semibold text-slate-400 uppercase">Desnivel Positivo</p>
-                    <h3 class="text-2xl font-extrabold text-cyan-400 mt-1">4,920 <span class="text-sm font-normal text-slate-300">m</span></h3>
+                    <h3 class="text-2xl font-extrabold text-cyan-400 mt-1" id="kpiTotalElevation">0 <span class="text-sm font-normal text-slate-300">m</span></h3>
                 </div>
                 <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
                     <p class="text-xs font-semibold text-slate-400 uppercase">Actividades Totales</p>
-                    <h3 class="text-2xl font-extrabold text-orange-400 mt-1" id="kpiTotalActivities">--</h3>
+                    <h3 class="text-2xl font-extrabold text-orange-400 mt-1" id="kpiTotalActivities">0 <span class="text-sm font-normal text-slate-300">rutas</span></h3>
                 </div>
                 <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
                     <p class="text-xs font-semibold text-slate-400 uppercase">Estado Base de Datos</p>
@@ -190,41 +190,10 @@
                             <h3 class="font-bold text-slate-100 flex items-center gap-2">
                                 <i class="fa-solid fa-trophy text-amber-400"></i> Ranking Mensual
                             </h3>
-                            <span class="text-[11px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-medium">Octubre</span>
+                            <span class="text-[11px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-medium">Real</span>
                         </div>
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/50 border border-slate-800/80">
-                                <div class="flex items-center space-x-3">
-                                    <span class="w-6 text-center font-extrabold text-amber-400 text-base">1º</span>
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-9 h-9 rounded-full object-cover">
-                                    <div><p class="text-xs font-bold text-slate-200">Francisco López</p><p class="text-[10px] text-slate-400">14 actividades</p></div>
-                                </div>
-                                <span class="font-extrabold text-lime-400 text-sm">184.2 km</span>
-                            </div>
-                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/50 border border-slate-800/80">
-                                <div class="flex items-center space-x-3">
-                                    <span class="w-6 text-center font-extrabold text-slate-300 text-base">2º</span>
-                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80" class="w-9 h-9 rounded-full object-cover">
-                                    <div><p class="text-xs font-bold text-slate-200">Ana María Gil</p><p class="text-[10px] text-slate-400">10 actividades</p></div>
-                                </div>
-                                <span class="font-extrabold text-cyan-400 text-sm">112.5 km</span>
-                            </div>
-                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/50 border border-slate-800/80">
-                                <div class="flex items-center space-x-3">
-                                    <span class="w-6 text-center font-extrabold text-amber-700 text-base">3º</span>
-                                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" class="w-9 h-9 rounded-full object-cover">
-                                    <div><p class="text-xs font-bold text-slate-200">Marina López</p><p class="text-[10px] text-slate-400">6 actividades</p></div>
-                                </div>
-                                <span class="font-extrabold text-orange-400 text-sm">76.8 km</span>
-                            </div>
-                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/50 border border-slate-800/80">
-                                <div class="flex items-center space-x-3">
-                                    <span class="w-6 text-center font-bold text-slate-500 text-base">4º</span>
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" class="w-9 h-9 rounded-full object-cover">
-                                    <div><p class="text-xs font-bold text-slate-200">Philipp Singer</p><p class="text-[10px] text-slate-400">4 actividades</p></div>
-                                </div>
-                                <span class="font-extrabold text-purple-400 text-sm">55.0 km</span>
-                            </div>
+                        <div class="space-y-3" id="realRankingList">
+                            <p class="text-xs text-slate-500 text-center py-4">Cargando ranking...</p>
                         </div>
                     </div>
                 </div>
@@ -353,6 +322,14 @@
                 <h3 class="text-sm font-bold text-slate-300 flex items-center gap-2"><i class="fa-solid fa-chart-area text-cyan-400"></i> Perfil de Altimetría y Relieve</h3>
                 <div class="h-56"><canvas id="detailElevationChart"></canvas></div>
             </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-2">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-bold text-slate-300 flex items-center gap-2"><i class="fa-solid fa-gauge-high text-orange-400"></i> Perfil de Velocidad (km/h)</h3>
+                    <span id="detailSpeedChartAvgBadge" class="text-[11px] font-mono text-cyan-400 bg-slate-950 px-2.5 py-0.5 rounded-full border border-slate-800"></span>
+                </div>
+                <div class="h-56"><canvas id="detailSpeedChart"></canvas></div>
+            </div>
         </div>
     </div>
 
@@ -367,7 +344,10 @@
         let googleMapInstance = null;
         let googlePolylineInstance = null;
         let detailChartInstance = null;
+        let detailSpeedChartInstance = null;
         let fetchedActivities = [];
+        let visibleActivities = [];
+        let profilesById = new Map();
         let currentAvatarImgId = null;
 
         const AVATARES = {
@@ -376,6 +356,59 @@
             'Marina López': 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80',
             'Philipp Singer': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80'
         };
+
+        const KNOWN_LABELS = {
+            'k2francisco@gmail.com': 'Francisco López',
+            'francisco poyatos': 'Francisco López',
+            'anagildorado1970@gmail.com': 'Ana María Gil',
+            'marinalopezgil@gmail.com': 'Marina López'
+        };
+
+        // Solo afecta al user_id indicado (en minúsculas o prefijo) sin tocar a otros usuarios
+        const USER_ID_LABELS = {
+            '059e1360': 'Francisco López'
+        };
+
+        function resolveNameByUserId(userId) {
+            const uid = (userId || '').toString().trim().toLowerCase();
+            if (!uid) return '';
+            if (USER_ID_LABELS[uid]) return USER_ID_LABELS[uid];
+            for (const [prefix, label] of Object.entries(USER_ID_LABELS)) {
+                if (uid.startsWith(prefix.toLowerCase())) {
+                    return label;
+                }
+            }
+            return '';
+        }
+
+        function normalizeDisplayLabel(raw) {
+            const clean = (raw || '').trim();
+            if (!clean) return '';
+            const key = clean.toLowerCase();
+            if (KNOWN_LABELS[key]) return KNOWN_LABELS[key];
+            return clean;
+        }
+
+        function getAvatarForAthlete(name) {
+            const normalized = normalizeDisplayLabel(name);
+            if (typeof AVATARES !== 'undefined' && AVATARES[normalized]) {
+                return AVATARES[normalized];
+            }
+            const lower = (normalized || '').toLowerCase();
+            if (lower.includes('francisco') || lower.includes('k2francisco')) {
+                return AVATARES['Francisco López'];
+            }
+            if (lower.includes('ana') || lower.includes('anagildorado')) {
+                return AVATARES['Ana María Gil'];
+            }
+            if (lower.includes('marina')) {
+                return AVATARES['Marina López'];
+            }
+            if (lower.includes('philipp')) {
+                return AVATARES['Philipp Singer'];
+            }
+            return `https://ui-avatars.com/api/?name=${encodeURIComponent(normalized || 'Atleta')}&background=1e293b&color=a3e635`;
+        }
 
         function formatSecondsToHM(totalSecs) {
             if (!totalSecs || isNaN(totalSecs) || totalSecs <= 0) return '1h 30m';
@@ -428,8 +461,51 @@
             }
         });
 
+        async function fetchProfilesMap() {
+            const map = new Map();
+            if (!supabaseClient) return map;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('profiles')
+                    .select('id, display_name, avatar_url');
+
+                if (!error && Array.isArray(data)) {
+                    for (const p of data) {
+                        if (!p?.id) continue;
+                        map.set(String(p.id), {
+                            displayName: normalizeDisplayLabel(p.display_name || ''),
+                            avatarUrl: (p.avatar_url || '').trim()
+                        });
+                    }
+                }
+            } catch (e) {
+                console.warn('No se pudo leer profiles:', e);
+            }
+            return map;
+        }
+
+        function resolveAthleteName(item, profileMap) {
+            const uid = item.user_id ? String(item.user_id) : '';
+            const mappedById = resolveNameByUserId(uid);
+            if (mappedById) return mappedById;
+
+            if (uid && profileMap && profileMap.has(uid)) {
+                const prof = profileMap.get(uid);
+                if (prof && prof.displayName) return prof.displayName;
+            }
+
+            const direct = normalizeDisplayLabel(item.athlete_name || item.owner || '');
+            if (direct) return direct;
+
+            if (uid) return `Usuario (${uid.slice(0, 8)})`;
+            return '';
+        }
+
         async function loadActivitiesFromSupabase() {
             try {
+                profilesById = await fetchProfilesMap();
+
                 const allRows = [];
                 const pageSize = 1000;
                 let from = 0;
@@ -456,6 +532,17 @@
                     from += pageSize;
                 }
 
+                // Unificar etiquetas por user_id si varias filas comparten el mismo user_id
+                const canonicalLabelByUserId = new Map();
+                for (const item of allRows) {
+                    const uid = item.user_id ? String(item.user_id) : '';
+                    if (!uid) continue;
+                    const resolved = resolveAthleteName(item, profilesById);
+                    if (resolved && !resolved.startsWith('Usuario (')) {
+                        canonicalLabelByUserId.set(uid, resolved);
+                    }
+                }
+
                 fetchedActivities = allRows.map((item, idx) => {
                     let parsedCoords = item.coords || [];
                     if (parsedCoords.length === 0 && item.route_polyline && window.google && google.maps && google.maps.geometry) {
@@ -467,10 +554,13 @@
 
                     const dbGrade = Number(item.max_grade_percentage || item.max_grade || 0);
                     const calculatedGrade = calculateMaxGrade(parsedCoords, item.altitudes);
+                    const uid = item.user_id ? String(item.user_id) : '';
+                    const resolvedOwner = (uid && canonicalLabelByUserId.get(uid)) || resolveAthleteName(item, profilesById);
 
                     return {
-                        id: item.id || idx,
-                        owner: (item.athlete_name || item.owner || '').trim(),
+                        id: String(item.id || `local-${idx}`),
+                        userId: uid,
+                        owner: resolvedOwner,
                         sport: (item.sport || item.sport_type || item.activity_type || item.type || 'Ciclismo').toString().trim(),
                         title: item.title || 'Ruta Ciclismo',
                         distance: Number(item.distance_km || item.distance || 0),
@@ -488,9 +578,10 @@
                     };
                 }).filter(act => act.owner.length > 0);
 
-                document.getElementById('kpiTotalActivities').innerHTML = `${fetchedActivities.length} <span class="text-sm font-normal text-slate-300">rutas</span>`;
                 renderActiveAthletesDropdown();
+                renderRealRanking();
                 renderFilteredFeed();
+                updateKpis();
 
             } catch(e) {
                 useFallbackData();
@@ -501,9 +592,34 @@
             document.getElementById('supabaseKpiStatus').textContent = "Sin conexión";
             document.getElementById('supabaseKpiStatus').className = "text-xl font-extrabold text-amber-400 mt-1";
             fetchedActivities = [];
-            document.getElementById('kpiTotalActivities').innerHTML = `0 <span class="text-sm font-normal text-slate-300">rutas</span>`;
             renderActiveAthletesDropdown();
+            renderRealRanking();
             renderFilteredFeed();
+            updateKpis();
+        }
+
+        function updateKpis() {
+            const list = activeFilterUser === 'Toda la familia'
+                ? fetchedActivities
+                : fetchedActivities.filter(a => a.owner.toLowerCase() === activeFilterUser.toLowerCase());
+
+            const totalKm = list.reduce((acc, act) => acc + (Number(act.distance) || 0), 0);
+            const totalElev = list.reduce((acc, act) => acc + (Number(act.elevation) || 0), 0);
+            const count = list.length;
+
+            const distEl = document.getElementById('kpiMonthDistance');
+            const elevEl = document.getElementById('kpiTotalElevation');
+            const actEl = document.getElementById('kpiTotalActivities');
+
+            if (distEl) {
+                distEl.innerHTML = `${totalKm.toFixed(1)} <span class="text-sm font-normal text-slate-300">km</span>`;
+            }
+            if (elevEl) {
+                elevEl.innerHTML = `${Math.round(totalElev).toLocaleString('es-ES')} <span class="text-sm font-normal text-slate-300">m</span>`;
+            }
+            if (actEl) {
+                actEl.innerHTML = `${count} <span class="text-sm font-normal text-slate-300">${count === 1 ? 'ruta' : 'rutas'}</span>`;
+            }
         }
 
         function renderActiveAthletesDropdown() {
@@ -527,7 +643,7 @@
             }
 
             container.innerHTML = activeAthletes.map(([name, count]) => {
-                const avatarUrl = AVATARES[name] || AVATARES['Francisco López'];
+                const avatarUrl = getAvatarForAthlete(name);
                 const safeName = name.replace(/'/g, "\\'");
                 const safeAvatar = avatarUrl.replace(/'/g, "\\'");
                 return `
@@ -547,45 +663,127 @@
             }
         }
 
+        function renderRealRanking() {
+            const rankingContainer = document.getElementById('realRankingList');
+            if (!rankingContainer) return;
+
+            const stats = new Map();
+            for (const act of fetchedActivities) {
+                const name = (act.owner || '').trim();
+                if (!name) continue;
+                const current = stats.get(name) || { name, count: 0, km: 0 };
+                current.count += 1;
+                current.km += Number(act.distance || 0);
+                stats.set(name, current);
+            }
+
+            const ranked = Array.from(stats.values())
+                .filter(item => item.count > 0)
+                .sort((a, b) => b.km - a.km || b.count - a.count);
+
+            if (ranked.length === 0) {
+                rankingContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">Sin actividades registradas en Supabase</p>`;
+                return;
+            }
+
+            const rankColors = ['text-amber-400', 'text-slate-300', 'text-amber-700', 'text-slate-400'];
+            const kmColors = ['text-lime-400', 'text-cyan-400', 'text-orange-400', 'text-purple-400'];
+
+            rankingContainer.innerHTML = ranked.map((item, idx) => {
+                const avatarUrl = getAvatarForAthlete(item.name);
+                return `
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/50 border border-slate-800/80">
+                        <div class="flex items-center space-x-3 min-w-0">
+                            <span class="w-6 text-center font-extrabold ${rankColors[idx] || 'text-slate-400'} text-base shrink-0">${idx + 1}º</span>
+                            <img src="${avatarUrl}" class="w-9 h-9 rounded-full object-cover shrink-0">
+                            <div class="min-w-0">
+                                <p class="text-xs font-bold text-slate-200 truncate">${item.name}</p>
+                                <p class="text-[10px] text-slate-400">${item.count} ${item.count === 1 ? 'actividad' : 'actividades'}</p>
+                            </div>
+                        </div>
+                        <span class="font-extrabold ${kmColors[idx] || 'text-lime-400'} text-sm shrink-0 ml-2">${item.km.toFixed(1)} km</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
         function triggerFileUpload() { document.getElementById('gpxFileInput').click(); }
 
         function parseGPX(gpxXmlText) {
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(gpxXmlText, "text/xml");
             const trkpts = xmlDoc.querySelectorAll("trkpt");
-            
+            const gpxNameNode = xmlDoc.querySelector("trk > name") || xmlDoc.querySelector("metadata > name");
+            const routeName = gpxNameNode && gpxNameNode.textContent ? gpxNameNode.textContent.trim() : '';
+
             const coords = [];
             const altitudes = [];
+            const timestamps = [];
             let totalDistKm = 0;
             let totalElevGain = 0;
+            let movingSeconds = 0;
+            let maxSpeedKmh = 0;
             let lastAlt = null;
 
             trkpts.forEach((pt, index) => {
                 const lat = parseFloat(pt.getAttribute("lat"));
                 const lng = parseFloat(pt.getAttribute("lon"));
                 const eleNode = pt.querySelector("ele");
+                const timeNode = pt.querySelector("time");
                 const ele = eleNode ? parseFloat(eleNode.textContent) : 0;
+                const ts = timeNode && timeNode.textContent ? Date.parse(timeNode.textContent) : NaN;
 
                 if (!isNaN(lat) && !isNaN(lng)) {
                     coords.push({ lat, lng });
                     altitudes.push(ele);
+                    timestamps.push(!isNaN(ts) ? ts : null);
 
                     if (index > 0) {
                         const prevPt = coords[index - 1];
-                        totalDistKm += haversineDistance(prevPt.lat, prevPt.lng, lat, lng);
+                        const segDistKm = haversineDistance(prevPt.lat, prevPt.lng, lat, lng);
+                        totalDistKm += segDistKm;
+
                         if (lastAlt !== null && ele > lastAlt) {
                             totalElevGain += (ele - lastAlt);
+                        }
+
+                        const prevTs = timestamps[index - 1];
+                        const currTs = timestamps[index];
+                        if (prevTs && currTs && currTs > prevTs) {
+                            const dtSec = (currTs - prevTs) / 1000;
+                            const segSpeedKmh = (segDistKm / (dtSec / 3600));
+                            if (segSpeedKmh > 0.5 && segSpeedKmh < 120) {
+                                movingSeconds += dtSec;
+                                if (segSpeedKmh > maxSpeedKmh) {
+                                    maxSpeedKmh = segSpeedKmh;
+                                }
+                            }
                         }
                     }
                     lastAlt = ele;
                 }
             });
 
+            const validTimes = timestamps.filter(t => t !== null);
+            const totalSeconds = validTimes.length >= 2
+                ? Math.max(0, Math.round((validTimes[validTimes.length - 1] - validTimes[0]) / 1000))
+                : 0;
+            const effectiveMovingSecs = movingSeconds > 0 ? Math.round(movingSeconds) : totalSeconds;
+            const avgSpeedKmh = effectiveMovingSecs > 0 && totalDistKm > 0
+                ? parseFloat((totalDistKm / (effectiveMovingSecs / 3600)).toFixed(1))
+                : 0;
+
             return {
                 coords,
                 altitudes,
-                distance: parseFloat(totalDistKm.toFixed(1)),
-                elevation: Math.round(totalElevGain)
+                routeName,
+                distance: parseFloat(totalDistKm.toFixed(2)),
+                elevation: Math.round(totalElevGain),
+                movingSeconds: effectiveMovingSecs || 5400,
+                totalSeconds: totalSeconds || effectiveMovingSecs || 6300,
+                avgSpeed: avgSpeedKmh || 20.0,
+                maxSpeed: maxSpeedKmh > 0 ? parseFloat(maxSpeedKmh.toFixed(1)) : 38.0,
+                startTime: validTimes.length > 0 ? new Date(validTimes[0]).toISOString() : new Date().toISOString()
             };
         }
 
@@ -599,67 +797,113 @@
             return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         }
 
+        function getActiveUserIdForUpload() {
+            if (activeFilterUser === 'Toda la familia') {
+                return fetchedActivities[0]?.userId || null;
+            }
+            const match = fetchedActivities.find(a => a.owner.toLowerCase() === activeFilterUser.toLowerCase());
+            return match?.userId || null;
+        }
+
         async function uploadRouteToSupabase(input) {
             const file = input.files[0];
             if (!file) return;
+
+            const lowerName = file.name.toLowerCase();
+            if (lowerName.endsWith('.fit')) {
+                showToast('Los archivos .FIT requieren decodificación binaria; usa un .GPX por ahora.');
+                input.value = '';
+                return;
+            }
 
             showToast(`Procesando ${file.name}...`);
             const reader = new FileReader();
 
             reader.onload = async (e) => {
                 const content = e.target.result;
-                let parsed = { coords: [], altitudes: [], distance: 0, elevation: 0 };
+                const parsed = parseGPX(content);
 
-                if (file.name.toLowerCase().endsWith('.gpx')) {
-                    parsed = parseGPX(content);
+                if (!parsed.coords || parsed.coords.length === 0) {
+                    showToast('No se encontraron coordenadas GPS válidas en el GPX.');
+                    input.value = '';
+                    return;
                 }
 
+                const targetOwner = activeFilterUser === 'Toda la familia'
+                    ? (fetchedActivities[0]?.owner || 'Francisco López')
+                    : activeFilterUser;
+                const targetUserId = getActiveUserIdForUpload();
+
                 const newActivity = {
-                    athlete_name: activeFilterUser === 'Toda la familia' ? 'Francisco López' : activeFilterUser,
-                    title: file.name.replace(/\.[^/.]+$/, ""),
-                    distance_km: parsed.distance || 25.0,
-                    moving_seconds: 5400,
-                    total_seconds: 6300,
-                    ascent_m: parsed.elevation || 150,
-                    avg_speed_kmh: 21.5,
-                    max_speed_kmh: 42.0,
+                    user_id: targetUserId,
+                    title: parsed.routeName || file.name.replace(/\.[^/.]+$/, ""),
+                    sport: 'Ciclismo',
+                    distance_km: parsed.distance,
+                    moving_seconds: parsed.movingSeconds,
+                    total_seconds: parsed.totalSeconds,
+                    ascent_m: parsed.elevation,
+                    avg_speed_kmh: parsed.avgSpeed,
+                    max_speed_kmh: parsed.maxSpeed,
                     max_grade_percentage: calculateMaxGrade(parsed.coords, parsed.altitudes),
-                    start_temperature: 20.0,
-                    start_time: new Date().toISOString(),
+                    start_time: parsed.startTime,
                     coords: parsed.coords,
                     altitudes: parsed.altitudes
                 };
 
                 if (supabaseClient) {
                     try {
-                        await supabaseClient.from('activities').insert([newActivity]);
+                        const { error } = await supabaseClient.from('activities').insert([newActivity]);
+                        if (error) throw error;
                         showToast('¡Ruta guardada en Supabase!');
-                        loadActivitiesFromSupabase();
+                        await loadActivitiesFromSupabase();
                     } catch(err) {
                         fetchedActivities.unshift({
                             ...newActivity,
-                            owner: newActivity.athlete_name,
-                            sport: 'Ciclismo',
+                            id: `local-${Date.now()}`,
+                            userId: targetUserId || '',
+                            owner: targetOwner,
                             distance: newActivity.distance_km,
-                            duration: '1h 30m',
-                            elapsed_time: '1h 45m',
+                            duration: formatSecondsToHM(newActivity.moving_seconds),
+                            elapsed_time: formatSecondsToHM(newActivity.total_seconds),
                             elevation: newActivity.ascent_m,
                             avg_speed: newActivity.avg_speed_kmh,
                             max_speed: newActivity.max_speed_kmh,
                             max_grade: newActivity.max_grade_percentage,
-                            temperature: newActivity.start_temperature,
-                            date: 'Hoy'
+                            temperature: '--',
+                            date: new Date(newActivity.start_time).toLocaleDateString('es-ES', {day: 'numeric', month: 'short', year: 'numeric'}),
+                            route_polyline: null
                         });
                         renderActiveAthletesDropdown();
+                        renderRealRanking();
                         renderFilteredFeed();
+                        updateKpis();
                         showToast('Guardado temporal en memoria.');
                     }
                 } else {
-                    fetchedActivities.unshift(newActivity);
+                    fetchedActivities.unshift({
+                        ...newActivity,
+                        id: `local-${Date.now()}`,
+                        userId: targetUserId || '',
+                        owner: targetOwner,
+                        distance: newActivity.distance_km,
+                        duration: formatSecondsToHM(newActivity.moving_seconds),
+                        elapsed_time: formatSecondsToHM(newActivity.total_seconds),
+                        elevation: newActivity.ascent_m,
+                        avg_speed: newActivity.avg_speed_kmh,
+                        max_speed: newActivity.max_speed_kmh,
+                        max_grade: newActivity.max_grade_percentage,
+                        temperature: '--',
+                        date: new Date(newActivity.start_time).toLocaleDateString('es-ES', {day: 'numeric', month: 'short', year: 'numeric'}),
+                        route_polyline: null
+                    });
                     renderActiveAthletesDropdown();
+                    renderRealRanking();
                     renderFilteredFeed();
+                    updateKpis();
                     showToast('Ruta cargada correctamente.');
                 }
+
+                input.value = '';
             };
 
             reader.readAsText(file);
@@ -668,9 +912,10 @@
         function filterByUser(userName, avatarUrl) {
             activeFilterUser = userName;
             document.getElementById('activeUserName').textContent = userName;
-            document.getElementById('activeAvatar').src = avatarUrl;
+            document.getElementById('activeAvatar').src = avatarUrl || getAvatarForAthlete(userName);
             document.getElementById('userDropdown').classList.add('hidden');
             renderFilteredFeed();
+            updateKpis();
         }
 
         function renderFilteredFeed() {
@@ -679,6 +924,8 @@
                 ? fetchedActivities 
                 : fetchedActivities.filter(a => a.owner.toLowerCase() === activeFilterUser.toLowerCase());
 
+            visibleActivities = filtered;
+
             if (filtered.length === 0) {
                 feed.innerHTML = `<div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl text-center text-slate-400">No hay actividades para ${activeFilterUser}.</div>`;
                 return;
@@ -686,10 +933,11 @@
 
             let html = '';
             filtered.forEach((act, index) => {
-                const avatarUrl = AVATARES[act.owner] || AVATARES['Francisco López'];
+                const avatarUrl = getAvatarForAthlete(act.owner);
+                const safeId = String(act.id).replace(/'/g, "\\'");
 
                 html += `
-                    <div class="bg-slate-900/90 border border-slate-800 hover:border-lime-500/40 transition-all rounded-2xl overflow-hidden shadow-xl p-5 space-y-3 cursor-pointer" onclick="openRouteDetailPageByIndex(${index})">
+                    <div class="bg-slate-900/90 border border-slate-800 hover:border-lime-500/40 transition-all rounded-2xl overflow-hidden shadow-xl p-5 space-y-3 cursor-pointer" onclick="openRouteDetailPageById('${safeId}')">
                         <div class="flex items-start justify-between">
                             <div class="flex items-center space-x-3.5">
                                 <img src="${avatarUrl}" class="w-11 h-11 rounded-full object-cover ring-2 ring-lime-400">
@@ -777,13 +1025,44 @@
             }, 100);
         }
 
-        function openRouteDetailPageByIndex(index) {
-            const filtered = activeFilterUser === 'Toda la familia' 
-                ? fetchedActivities 
-                : fetchedActivities.filter(a => a.owner.toLowerCase() === activeFilterUser.toLowerCase());
-            
-            const act = filtered[index] || fetchedActivities[0];
-            if (!act) return;
+        async function fetchTrackpointsForActivity(activityId) {
+            if (!supabaseClient || !activityId) return [];
+
+            const allPoints = [];
+            const pageSize = 1000;
+            let from = 0;
+
+            while (true) {
+                const { data, error } = await supabaseClient
+                    .from('activity_trackpoints')
+                    .select('*')
+                    .eq('activity_id', activityId)
+                    .order('timestamp', { ascending: true })
+                    .range(from, from + pageSize - 1);
+
+                if (error) {
+                    console.warn('Error leyendo activity_trackpoints:', error);
+                    break;
+                }
+                if (!data || data.length === 0) break;
+
+                allPoints.push(...data);
+                if (data.length < pageSize) break;
+                from += pageSize;
+            }
+
+            return allPoints;
+        }
+
+        async function openRouteDetailPageById(activityId) {
+            const targetId = String(activityId);
+            const act = fetchedActivities.find(a => String(a.id) === targetId)
+                || visibleActivities.find(a => String(a.id) === targetId);
+
+            if (!act) {
+                showToast('No se encontró la actividad seleccionada.');
+                return;
+            }
             
             document.getElementById('detailTitle').textContent = act.title;
             document.getElementById('detailSubtitle').textContent = `${act.owner} · ${act.date}`;
@@ -798,7 +1077,7 @@
 
             document.getElementById('routeDetailPage').classList.remove('hidden');
 
-            setTimeout(() => {
+            setTimeout(async () => {
                 const mapContainer = document.getElementById('googleDetailMap');
 
                 if (!window.google || !google.maps) {
@@ -868,33 +1147,280 @@
                 }
 
                 const ctx = document.getElementById('detailElevationChart').getContext('2d');
-                if (detailChartInstance) detailChartInstance.destroy();
-                
-                const altitudes = (act.altitudes && act.altitudes.length > 0) ? act.altitudes : [15, 45, 120, 210, 180, 45, 15];
-                detailChartInstance = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: altitudes.map((_, i) => `${(i * (act.distance / altitudes.length)).toFixed(1)} km`),
-                        datasets: [{
-                            label: 'Altitud (m)',
-                            data: altitudes,
-                            borderColor: '#84cc16',
-                            backgroundColor: 'rgba(132, 204, 22, 0.15)',
-                            fill: true,
-                            tension: 0.4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: {
-                            x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
-                            y: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } }
+                if (detailChartInstance) {
+                    detailChartInstance.destroy();
+                    detailChartInstance = null;
+                }
+                if (detailSpeedChartInstance) {
+                    detailSpeedChartInstance.destroy();
+                    detailSpeedChartInstance = null;
+                }
+                const avgBadge = document.getElementById('detailSpeedChartAvgBadge');
+                if (avgBadge) avgBadge.textContent = '';
+
+                const points = await fetchTrackpointsForActivity(act.id);
+                const validPoints = points.filter(p =>
+                    p.elevation !== null &&
+                    p.elevation !== undefined &&
+                    !isNaN(Number(p.elevation))
+                );
+
+                if (validPoints.length > 0) {
+                    let accDistKm = 0;
+                    const labels = [];
+                    const elevations = [];
+
+                    validPoints.forEach((pt, i) => {
+                        if (
+                            pt.distance_from_start !== null &&
+                            pt.distance_from_start !== undefined &&
+                            !isNaN(Number(pt.distance_from_start))
+                        ) {
+                            accDistKm = Number(pt.distance_from_start) / 1000;
+                        } else if (
+                            i > 0 &&
+                            validPoints[i - 1].latitude !== null &&
+                            validPoints[i - 1].latitude !== undefined &&
+                            pt.latitude !== null &&
+                            pt.latitude !== undefined
+                        ) {
+                            accDistKm += haversineDistance(
+                                Number(validPoints[i - 1].latitude),
+                                Number(validPoints[i - 1].longitude),
+                                Number(pt.latitude),
+                                Number(pt.longitude)
+                            );
                         }
+                        labels.push(`${accDistKm.toFixed(2)} km`);
+                        elevations.push(Number(pt.elevation));
+                    });
+
+                    const minEle = Math.min(...elevations);
+                    const maxEle = Math.max(...elevations);
+                    const rawSpan = maxEle - minEle;
+
+                    // Para que una ruta llana (como por el pueblo, con < 2 m de cambio) se vea realmente plana,
+                    // usamos una banda mínima de 12 m centrada en la altitud media (ej. de 8 m a 20 m en Brenes)
+                    // y suavizamos los escalones decimales del GPS.
+                    let yMin = minEle;
+                    let yMax = maxEle;
+                    let plotElevations = elevations;
+
+                    if (rawSpan < 3) {
+                        const center = (minEle + maxEle) / 2;
+                        const minBand = 40; // banda de 40 m (de 0 m a 40 m en cotas bajas) para que ±0.5 m se vea totalmente plano
+                        yMin = Math.max(0, Math.floor((center - minBand / 2) / 5) * 5);
+                        yMax = yMin + minBand;
+
+                        // Media móvil amplia (ventana 15) para eliminar por completo el micro-ruido del GPS
+                        plotElevations = elevations.map((_, idx, arr) => {
+                            const start = Math.max(0, idx - 7);
+                            const end = Math.min(arr.length - 1, idx + 7);
+                            let sum = 0;
+                            for (let k = start; k <= end; k++) sum += arr[k];
+                            return Number((sum / (end - start + 1)).toFixed(2));
+                        });
                     }
-                });
+
+                    const effectiveSpan = yMax - yMin;
+
+                    detailChartInstance = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels,
+                            datasets: [{
+                                label: 'Altitud (m)',
+                                data: plotElevations,
+                                borderColor: '#84cc16',
+                                backgroundColor: 'rgba(132, 204, 22, 0.15)',
+                                fill: true,
+                                tension: 0.35,
+                                pointRadius: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                x: { ticks: { color: '#94a3b8', maxTicksLimit: 8 }, grid: { color: '#1e293b' } },
+                                y: {
+                                    min: Number(yMin),
+                                    max: Number(yMax),
+                                    suggestedMin: Number(yMin),
+                                    suggestedMax: Number(yMax),
+                                    ticks: {
+                                        color: '#94a3b8',
+                                        stepSize: effectiveSpan === 40 ? 10 : (effectiveSpan <= 15 ? 2 : undefined),
+                                        maxTicksLimit: 6,
+                                        callback: function(val) {
+                                            const num = Number(val);
+                                            if (effectiveSpan > 20) return `${Math.round(num)} m`;
+                                            return `${num.toFixed(1)} m`;
+                                        }
+                                    },
+                                    grid: { color: '#1e293b' }
+                                }
+                            }
+                        }
+                    });
+
+                    // --- PERFIL DE VELOCIDAD (km/h) ---
+                    const speedCanvas = document.getElementById('detailSpeedChart');
+                    if (speedCanvas) {
+                        const speedCtx = speedCanvas.getContext('2d');
+                        const rawSpeeds = [];
+
+                        validPoints.forEach((pt, i) => {
+                            // 1) Si la tabla trae velocidad directa (speed_kmh o speed en m/s)
+                            let spd = null;
+                            if (pt.speed_kmh !== null && pt.speed_kmh !== undefined && !isNaN(Number(pt.speed_kmh))) {
+                                spd = Number(pt.speed_kmh);
+                            } else if (pt.speed !== null && pt.speed !== undefined && !isNaN(Number(pt.speed))) {
+                                const val = Number(pt.speed);
+                                // Si viene en m/s suele ser <= 25; si ya es km/h puede ser mayor, pero comparamos con avg_speed de la actividad
+                                spd = (act.avg_speed > 0 && val < act.avg_speed * 0.45) ? val * 3.6 : val;
+                            } else if (i > 0) {
+                                // 2) Calcular velocidad entre trackpoints consecutivos usando distancia y timestamp
+                                const prev = validPoints[i - 1];
+                                const t1 = prev.timestamp ? Date.parse(prev.timestamp) : NaN;
+                                const t2 = pt.timestamp ? Date.parse(pt.timestamp) : NaN;
+                                if (!isNaN(t1) && !isNaN(t2) && t2 > t1) {
+                                    const dtHours = (t2 - t1) / 3600000;
+                                    let dKm = 0;
+                                    if (
+                                        pt.distance_from_start !== null && pt.distance_from_start !== undefined &&
+                                        prev.distance_from_start !== null && prev.distance_from_start !== undefined
+                                    ) {
+                                        dKm = Math.max(0, (Number(pt.distance_from_start) - Number(prev.distance_from_start)) / 1000);
+                                    } else if (
+                                        prev.latitude !== null && prev.longitude !== null &&
+                                        pt.latitude !== null && pt.longitude !== null
+                                    ) {
+                                        dKm = haversineDistance(
+                                            Number(prev.latitude), Number(prev.longitude),
+                                            Number(pt.latitude), Number(pt.longitude)
+                                        );
+                                    }
+                                    const calcSpd = dKm / dtHours;
+                                    spd = (calcSpd >= 0 && calcSpd <= 110) ? calcSpd : (rawSpeeds[i - 1] || 0);
+                                } else {
+                                    spd = rawSpeeds[i - 1] || 0;
+                                }
+                            } else {
+                                spd = 0;
+                            }
+                            rawSpeeds.push(Math.max(0, Math.min(110, Number(spd || 0))));
+                        });
+
+                        // Suavizado extra (triple pasada de media móvil ponderada con ventana amplia) para una curva muy limpia
+                        function triangularSmoothPass(arr, radiusDivisor, minR, maxR) {
+                            const r = Math.min(maxR, Math.max(minR, Math.floor(arr.length / radiusDivisor)));
+                            return arr.map((_, idx) => {
+                                const start = Math.max(0, idx - r);
+                                const end = Math.min(arr.length - 1, idx + r);
+                                let weightedSum = 0;
+                                let totalWeight = 0;
+                                for (let k = start; k <= end; k++) {
+                                    const w = (r + 1) - Math.abs(k - idx);
+                                    weightedSum += arr[k] * w;
+                                    totalWeight += w;
+                                }
+                                return weightedSum / totalWeight;
+                            });
+                        }
+
+                        const p1 = triangularSmoothPass(rawSpeeds, 22, 8, 18);
+                        const p2 = triangularSmoothPass(p1, 26, 7, 15);
+                        const smoothSpeeds = triangularSmoothPass(p2, 32, 5, 12).map(v => Number(v.toFixed(1)));
+
+                        const maxPlotSpeed = Math.max(...smoothSpeeds, 10);
+                        const ySpeedMax = Math.ceil(maxPlotSpeed / 5) * 5 + 5;
+                        const avgLineValue = Number(act.avg_speed || 0);
+
+                        if (avgBadge && avgLineValue > 0) {
+                            avgBadge.textContent = `Media: ${avgLineValue.toFixed(1)} km/h`;
+                        }
+
+                        const speedDatasets = [{
+                            label: 'Velocidad (km/h)',
+                            data: smoothSpeeds,
+                            borderColor: '#06b6d4',
+                            backgroundColor: 'rgba(6, 182, 212, 0.16)',
+                            fill: true,
+                            tension: 0.5,
+                            pointRadius: 0
+                        }];
+
+                        if (avgLineValue > 0) {
+                            speedDatasets.push({
+                                label: `Media (${avgLineValue.toFixed(1)} km/h)`,
+                                data: smoothSpeeds.map(() => avgLineValue),
+                                borderColor: '#f97316',
+                                borderWidth: 1.5,
+                                borderDash: [6, 4],
+                                fill: false,
+                                pointRadius: 0
+                            });
+                        }
+
+                        detailSpeedChartInstance = new Chart(speedCtx, {
+                            type: 'line',
+                            data: {
+                                labels,
+                                datasets: speedDatasets
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                interaction: {
+                                    mode: 'index',
+                                    intersect: false
+                                },
+                                plugins: {
+                                    legend: {
+                                        display: avgLineValue > 0,
+                                        labels: { color: '#94a3b8', boxWidth: 14, font: { size: 11 } }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                return `${context.dataset.label}: ${Number(context.parsed.y).toFixed(1)} km/h`;
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: { ticks: { color: '#94a3b8', maxTicksLimit: 8 }, grid: { color: '#1e293b' } },
+                                    y: {
+                                        min: 0,
+                                        max: ySpeedMax,
+                                        ticks: {
+                                            color: '#94a3b8',
+                                            maxTicksLimit: 6,
+                                            callback: function(val) {
+                                                return `${Math.round(Number(val))} km/h`;
+                                            }
+                                        },
+                                        grid: { color: '#1e293b' }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    showToast('Esta ruta no tiene datos de altitud en trackpoints.');
+                }
             }, 250);
+        }
+
+        function openRouteDetailPageByIndex(index) {
+            const act = visibleActivities[index];
+            if (!act) {
+                showToast('No se encontró la actividad seleccionada.');
+                return;
+            }
+            openRouteDetailPageById(act.id);
         }
 
         function closeRouteDetailPage() { document.getElementById('routeDetailPage').classList.add('hidden'); }
